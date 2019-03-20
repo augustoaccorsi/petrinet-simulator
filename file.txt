@@ -1,0 +1,9 @@
+Quantos lugares: 3
+Quantas transicoes: 2
+Quais são os lugares de entrada de T1? 1, 3
+Quais são os lugares de entrada de T2? 2, 3
+Quantas marcas em L1 ? 10
+Quantas marcas em L2 ? 4
+Quantas marcas em L3 ? 0
+Qual o peso do arco de L1 para T1 ? 1
+Qual o peso do arco de L3 para T1 ? 2
