@@ -2,6 +2,6 @@ class Transaction:
     locations = []
     pos = 0
 
-    def addlocations(self, location):
+    def addlocation(self, location):
         self.locations[self.pos] = location
         self.pos += 1
