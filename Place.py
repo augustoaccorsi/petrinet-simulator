@@ -12,6 +12,7 @@ class Place:
 
     def printplace(self):
         print(self.name)
+        print(self.mark)
 
     def addmark(self, mark):
         self.mark = mark
