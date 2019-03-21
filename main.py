@@ -32,16 +32,19 @@ def addplacestotransactions(line):
     plaace_numbers = re.findall(r'[0-9]', parts[0])
     for i in range(len(plaace_numbers)):
         plaace_numbers[i] = "L"+str(plaace_numbers[i])
+        #print(plaace_numbers[i])
     trans_name = ""
     for i in range(countobj(transactions)):
         if line.find(transactions[i].name) != -1:
+            #print("achou minha TRANSAÇAO "+ transactions[i].name)
             trans_name = transactions[i].name
             # eu sei que tneho t1
             for j in range(countobj(places)):
-                if places[j].name == plaace_numbers[j-1]:
-                    transactions[i].addlocation(places[j])
-            transactions[i].printtransaction()
-            print("-----------------")
+                for k in range(len(plaace_numbers)):
+                    if places[j].name == plaace_numbers[k]:
+                        transactions[i].addlocation(places[j])
+            #transactions[i].printtransaction()
+            #print("-----------------")
 
            
         
