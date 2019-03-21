@@ -1,5 +1,8 @@
 class Transaction:
-    locations = [None] * 20
+
+    from Place import Place
+
+    locations = [Place] * 20
     pos = 0
     name = ""
     def __init__(self, name):
@@ -11,6 +14,9 @@ class Transaction:
 
     def printtransaction(self):
         print(self.name)
+        for i in range (len(self.locations)):
+            if self.locations[i].name != "":
+                print(self.locations[i].name)
     
     def getname(self):
         return self.name
