@@ -5,19 +5,24 @@ from Transaction import Transaction
 places = [Place] * 20
 transactions = [Transaction] * 20
 
-def buildObjects(line):
-    if line.find("A") != -1:
-        if re.search(r'[0-9]', line):
+def createplaces(line):
+    if re.search(r'[0-9]', line):
             index = re.findall(r'[0-9]', line)
             for i in range(int(index[0])):
                 places[i] = Place("L"+str(i+1))
-                places[i].printPlace()
-    elif line.find("B") != -1:
-        if re.search(r'[0-9]', line):
+
+def createtransactions(line):
+    if re.search(r'[0-9]', line):
             index = re.findall(r'[0-9]', line)
             for i in range(int(index[0])):
                 transactions[i] = Transaction("T"+str(i+1))
-                transactions[i].printTransaction()
+
+def buildOojects(line):
+    if line.find("A") != -1:
+        createplaces(line)
+    elif line.find("B") != -1:
+        createtransactions(line)
+
 
 #A Quantos lugares: 3
 #B Quantas transicoes: 2
@@ -35,7 +40,7 @@ def buildObjects(line):
 def readFile():
     with open("file.txt", 'r') as f:
         for line in f:
-            buildObjects(line)
+            buildobjects(line)
 
 #    str = file.readlines(1)
 #    print(str)

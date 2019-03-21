@@ -9,5 +9,8 @@ class Transaction:
         self.locations[self.pos] = location
         self.pos += 1
 
-    def printTransaction(self):
+    def printtransaction(self):
         print(self.name)
+    
+    def getname(self):
+        return self.name

@@ -6,12 +6,12 @@ class Place:
     def __init__(self, name):
         self.name = name
 
-    def addTransaction(self, transaction):
+    def addtransaction(self, transaction):
         self.transactions[self.pos] = transaction
         self.pos += 1
 
-    def printPlace(self):
+    def printplace(self):
         print(self.name)
 
-    def addMark(self, mark):
+    def addmark(self, mark):
         self.mark = mark
