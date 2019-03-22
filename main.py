@@ -34,7 +34,6 @@ def addplacestotransactions(line):
         plaace_numbers[i] = "L"+str(plaace_numbers[i])
     for i in range(countobj(transactions)):
         if line.find(transactions[i].name) != -1:
-            trans_name = transactions[i].name
             for j in range(countobj(places)):
                 for k in range(len(plaace_numbers)):
                     if places[j].name == plaace_numbers[k]:
@@ -50,6 +49,20 @@ def addmarks(line):
         if places[i].name == place:
             places[i].addmark(marks)
 
+def addsize(line):
+    marks = re.split('(^.*)?\?', line)
+    index = re.findall(r'[0-9]', marks[1])
+    place = "L"+index[0]
+    transaction = "T"+index[1]
+    size = int(marks[2])
+    print(size)
+    for i in range(countobj(places)):
+        if places[i].name == place:
+            trans = places[i].gettransactions()
+            for j in range(countobj(trans)):
+                if trans[j].name == transaction:
+                    trans[j].setsize(size)
+
 def buildobjects(line):
     if line.find("A") != -1:
         createplaces(line)
@@ -59,7 +72,8 @@ def buildobjects(line):
         addplacestotransactions(line)
     elif line.find("D") != -1:
         addmarks(line)
-            
+    elif line.find("E") != -1:
+        addsize(line)
 
 
 #A Quantos lugares: 3

@@ -1,10 +1,11 @@
 class Transaction:
-
     from Place import Place
 
     locations = [Place] * 20
     pos = 0
     name = ""
+    size = 0
+
     def __init__(self, name):
         self.name = name
 
@@ -20,3 +21,6 @@ class Transaction:
     
     def getname(self):
         return self.name
+    
+    def setsize(self, size):
+        self.size = size

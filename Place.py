@@ -1,5 +1,7 @@
 class Place:
-    transactions = [None] * 20
+    from Transaction import Transaction
+    
+    transactions = [Transaction] * 20
     pos = 0
     mark = 0
     name = ""
@@ -16,3 +18,6 @@ class Place:
 
     def addmark(self, mark):
         self.mark = mark
+    
+    def gettransactions(self):
+        return self.transactions
