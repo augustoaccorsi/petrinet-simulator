@@ -55,7 +55,6 @@ def addsize(line):
     place = "L"+index[0]
     transaction = "T"+index[1]
     size = int(marks[2])
-    print(size)
     for i in range(countobj(places)):
         if places[i].name == place:
             trans = places[i].gettransactions()
@@ -63,6 +62,7 @@ def addsize(line):
                 if trans[j].name == transaction:
                     trans[j].setsize(size)
 
+                
 def buildobjects(line):
     if line.find("A") != -1:
         createplaces(line)

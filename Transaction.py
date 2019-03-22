@@ -1,5 +1,5 @@
 class Transaction:
-    from Place import Place
+    import Place
 
     locations = [Place] * 20
     pos = 0
@@ -18,6 +18,7 @@ class Transaction:
         for i in range (len(self.locations)):
             if self.locations[i].name != "":
                 print(self.locations[i].name)
+            print(self.size)
     
     def getname(self):
         return self.name
