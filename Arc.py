@@ -1,12 +1,16 @@
 class Arc:
+    id = 0
     size = 0
     transaction = None
     place = None
+    et = None
 
-    def __init__(self, transaction, place, size):
+    def __init__(self, id, transaction, place, size, et):
+        self.id = id
         self.transaction = transaction
         self.place = place
         self.size = size 
+        self.et = et
     
     def settransaction(self, transaction):
         self.transaction = transaction
@@ -16,3 +20,18 @@ class Arc:
 
     def setsize(self, size):
         self.size = size
+    
+    def setet(self, et):
+        self.et = et
+
+    def gettransaction(self):
+        return self.transaction
+    
+    def getplace(self):
+        return self.place
+
+    def getsize(self):
+        return self.size
+    
+    def getet(self):
+        return self.et
