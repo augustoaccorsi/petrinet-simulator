@@ -1,9 +1,5 @@
 class Transaction:
-    import Place
-    import Arc
-
     palce_list = []
-    locations = [Place] * 20
     arcs_in= []
     arcs_out= []
     pos = 0
@@ -14,8 +10,6 @@ class Transaction:
         self.name = name
 
     def addlocation(self, location):
-        #self.locations[self.pos] = location
-        #self.pos += 1
         self.palce_list.append(location)
     
     def addarcin(self, arc):

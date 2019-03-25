@@ -1,9 +1,11 @@
 import re
 from Place import Place
 from Transaction import Transaction
+from Arc import Arc
 
-places = [Place] * 20  
-transactions = [Transaction] * 20
+places = []
+transactions = []
+arcs = []
 trans_count = 0
 places_count = 0
 
@@ -18,25 +20,30 @@ def createplaces(line):
     if re.search(r'[0-9]', line):
             index = re.findall(r'[0-9]', line)
             for i in range(int(index[0])):
-                places[i] = Place("L"+str(i+1))
+                places.append(Place("L"+str(i+1)))
 
 def createtransactions(line):
     if re.search(r'[0-9]', line):
             index = re.findall(r'[0-9]', line)
             for i in range(int(index[0])):
-                transactions[i] = Transaction("T"+str(i+1))
+                transactions.append(Transaction("T"+str(i+1)))
 
 def addplacestotransactions(line):
     parts = re.split('(^.*)?\?', line)
     parts = re.split('(^.*)?\?', parts[2])
-    plaace_numbers = re.findall(r'[0-9]', parts[0])
-    for i in range(len(plaace_numbers)):
-        plaace_numbers[i] = "L"+str(plaace_numbers[i])
+    place_numbers = re.findall(r'[0-9]', parts[0])
+    for i in range(len(place_numbers)):
+        place_numbers[i] = "L"+str(place_numbers[i])
     for i in range(countobj(transactions)):
         if line.find(transactions[i].name) != -1:
             for j in range(countobj(places)):
-                for k in range(len(plaace_numbers)):
-                    if places[j].name == plaace_numbers[k]:
+                for k in range(len(place_numbers)):
+                    if places[j].name == place_numbers[k]:
+                        #place[j] arco transactions[i]
+                        arc = Arc(places[j].name+transactions[i].name, transactions[i], places[j], 0)
+                        arcs.append(arc)                        
+                        transactions[i].addarcin(arc)
+                        places[j].addarc(arc)
                         transactions[i].addlocation(places[j])
 
 def addmarks(line):
@@ -52,15 +59,11 @@ def addmarks(line):
 def addsize(line):
     marks = re.split('(^.*)?\?', line)
     index = re.findall(r'[0-9]', marks[1])
-    place = "L"+index[0]
-    transaction = "T"+index[1]
+    arc_id = "L"+index[0]+"T"+index[1]
     size = int(marks[2])
-    for i in range(countobj(places)):
-        if places[i].name == place:
-            trans = places[i].gettransactions()
-            for j in range(countobj(trans)):
-                if trans[j].name == transaction:
-                    trans[j].setsize(size)
+    for i in range(len(arcs)):
+        if arcs[i].id == arc_id:
+            arcs[i].setsize(size)
 
                 
 def buildobjects(line):

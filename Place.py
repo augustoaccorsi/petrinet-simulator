@@ -1,7 +1,4 @@
-class Place:
-    from Transaction import Transaction
-    from Arc import Arc
-    
+class Place:    
     transaction_list = []
     arcs_list = []
     pos = 0
