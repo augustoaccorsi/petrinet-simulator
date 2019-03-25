@@ -32,7 +32,6 @@ def addplacestotransactions(line):
             for j in range(len(places)):
                 for k in range(len(place_numbers)):
                     if places[j].name == place_numbers[k]:
-                        #place[j] arco transactions[i]
                         arc = Arc(places[j].name+transactions[i].name, transactions[i], places[j], 0)
                         arcs.append(arc)                        
                         transactions[i].addarcin(arc)
@@ -71,37 +70,10 @@ def buildobjects(line):
     elif line.find("E") != -1:
         addsize(line)
 
-
-#A Quantos lugares: 3
-#B Quantas transicoes: 2
-#C Quais são os lugares de entrada de T1? 1, 3
-#C Quais são os lugares de entrada de T2? 2, 3
-#D Quantas marcas em L1 ? 10
-#D Quantas marcas em L2 ? 4
-#D Quantas marcas em L3 ? 0
-#E Qual o peso do arco de L1 para T1 ? 1
-#E Qual o peso do arco de L3 para T1 ? 2
-
-
-
-
 def readFile():
     with open("file.txt", 'r') as f:
         for line in f:
             buildobjects(line)
-
-#    str = file.readlines(1)
-#    print(str)
-
-#    for i in range(3):
-#        a = Place(4)
-#        places[i] = a
-#        places[i].printPlace()
-
-
-
-#def getData():
-    #receber dados do usuário
 
 userinput = input("Digite 1 para buscar os dados do arquivo ou 2 para inserir manulamente: ")  
 
