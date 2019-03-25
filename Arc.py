@@ -23,15 +23,3 @@ class Arc:
     
     def setet(self, et):
         self.et = et
-
-    def gettransaction(self):
-        return self.transaction
-    
-    def getplace(self):
-        return self.place
-
-    def getsize(self):
-        return self.size
-    
-    def getet(self):
-        return self.et
