@@ -89,6 +89,13 @@ def prinPetriNet():
     print("Transação ", end = " | ")
     for i in range(len(transactions)):
         print(transactions[i].name, end = " | ")
+    print()
+    print("Habilitdo ", end = " | ")
+    for i in range(len(transactions)):
+        if transactions[i].enabled:
+            print("S", end = " | ")
+        else:        
+            print("N", end = " | ")
     
 
 userinput = input("Digite 1 para buscar os dados do arquivo ou 2 para inserir manulamente: ")  
