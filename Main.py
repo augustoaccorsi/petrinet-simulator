@@ -6,6 +6,7 @@ from Arc import Arc
 places = []
 transactions = []
 arcs = []
+marks_list =[]
 trans_count = 0
 places_count = 0
 
@@ -47,6 +48,7 @@ def addmarks(line):
     for i in range(len(places)):
         if places[i].name == place:
             places[i].addmark(marks)
+            marks_list.append(marks)
 
 def addsize(line):
     marks = re.split('(^.*)?\?', line)
@@ -75,6 +77,20 @@ def readFile():
         for line in f:
             buildobjects(line)
 
+def prinPetriNet():
+    print("Lugares   ", end = " | ")
+    for i in range(len(places)):
+        print(places[i].name, end = " | ")
+    print()
+    print("Marcas    ", end = " | ")
+    for i in range(len(marks_list)):
+        print(marks_list[i], end = " | ")
+    print()
+    print("Transação ", end = " | ")
+    for i in range(len(transactions)):
+        print(transactions[i].name, end = " | ")
+    
+
 userinput = input("Digite 1 para buscar os dados do arquivo ou 2 para inserir manulamente: ")  
 
 if userinput == "1":
@@ -83,3 +99,5 @@ elif userinput == "2":
     print("dois")
 else:
     print("tres")
+
+prinPetriNet()

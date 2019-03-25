@@ -5,6 +5,7 @@ class Transaction:
     pos = 0
     name = ""
     size = 0
+    enabled = False
 
     def __init__(self, name):
         self.name = name
@@ -27,3 +28,6 @@ class Transaction:
         
     def setsize(self, size):
         self.size = size
+
+    def setEnabled(self, enabled):
+        self.enabled = enabled
