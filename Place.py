@@ -15,7 +15,7 @@ class Place:
         self.pos += 1
     
     def addarc(self, arc):
-        self.arcs[self.pos] = arc
+        self.arcs[self.pos] = arc 
         self.pos += 1
 
     def printplace(self):
