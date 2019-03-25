@@ -9,13 +9,6 @@ arcs = []
 trans_count = 0
 places_count = 0
 
-def countobj(obj):
-    count = 0
-    for i in range(len(obj)):
-        if obj[i].name != "":
-            count += 1
-    return count
-
 def createplaces(line):
     if re.search(r'[0-9]', line):
             index = re.findall(r'[0-9]', line)
@@ -34,9 +27,9 @@ def addplacestotransactions(line):
     place_numbers = re.findall(r'[0-9]', parts[0])
     for i in range(len(place_numbers)):
         place_numbers[i] = "L"+str(place_numbers[i])
-    for i in range(countobj(transactions)):
+    for i in range(len(transactions)):
         if line.find(transactions[i].name) != -1:
-            for j in range(countobj(places)):
+            for j in range(len(places)):
                 for k in range(len(place_numbers)):
                     if places[j].name == place_numbers[k]:
                         #place[j] arco transactions[i]
@@ -52,7 +45,7 @@ def addmarks(line):
     place = "L"+place[0]
     marks = re.split('(^.*)?\?', marks[2])
     marks = int(marks[0])
-    for i in range(countobj(places)):
+    for i in range(len(places)):
         if places[i].name == place:
             places[i].addmark(marks)
 
