@@ -9,8 +9,6 @@ class Place:
         self.name = name
 
     def addtransaction(self, transaction):
-        #self.transactions[self.pos] = transaction
-        #self.pos += 1
         self.transaction_list.append(transaction)
     
     def addarc(self, arc):
