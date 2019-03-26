@@ -33,7 +33,7 @@ def addplacestotransactions(line):
             for j in range(len(places)):
                 for k in range(len(place_numbers)):
                     if places[j].name == place_numbers[k]:
-                        arc = Arc(places[j].name+transactions[i].name, transactions[i], places[j], 0)
+                        arc = Arc(places[j].name+transactions[i].name, transactions[i], places[j], 1)
                         arcs.append(arc)                        
                         transactions[i].addarcin(arc)
                         places[j].addarc(arc)
@@ -98,6 +98,12 @@ def prinPetriNet():
             print("N", end = " | ")
     
 
+def consume(): #executa passo a passo a rede de petri
+    for i in range(len(places)):
+        arc_list = places[i].arcs_list
+        for j in range(len(arc_list)):
+            size = arc_list[j].size
+
 userinput = input("Digite 1 para buscar os dados do arquivo ou 2 para inserir manulamente: ")  
 
 if userinput == "1":
@@ -106,5 +112,9 @@ elif userinput == "2":
     print("dois")
 else:
     print("tres")
-
+print()
+print("Rede de Petri inicial-----------------------------------------")
 prinPetriNet()
+print("\n--------------------------------------------------------------")
+
+#consume()
