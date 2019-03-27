@@ -16,7 +16,7 @@
 | F Quais são os Lugares de saída de cada Transição   |
 | G Peso do arco Transicao -> Lugar                   |
 
-** As letras de A - G são necessárias
+* As letras de A - G são necessárias (olhe o arquivo file.txt)
 
 ### Execução do prgrama
 
