@@ -5,7 +5,8 @@ from Arc import Arc
 
 places = []
 transactions = []
-arcs = []
+arcs_in = []
+arcs_out = []
 marks_list =[]
 trans_count = 0
 places_count = 0
@@ -34,8 +35,25 @@ def addplacestotransactions(line):
                 for k in range(len(place_numbers)):
                     if places[j].name == place_numbers[k]:
                         arc = Arc(places[j].name+transactions[i].name, transactions[i], places[j], 1)
-                        arcs.append(arc)                        
+                        arcs_in.append(arc)                        
                         transactions[i].addarcin(arc)
+                        places[j].addarc(arc)
+                        transactions[i].addlocation(places[j])
+
+def addtransactionstoplaces(line):
+    parts = re.split('(^.*)?\?', line)
+    parts = re.split('(^.*)?\?', parts[2])
+    place_numbers = re.findall(r'[0-9]', parts[0])
+    for i in range(len(place_numbers)):
+        place_numbers[i] = "L"+str(place_numbers[i])
+    for i in range(len(transactions)):
+        if line.find(transactions[i].name) != -1:
+            for j in range(len(places)):
+                for k in range(len(place_numbers)):
+                    if places[j].name == place_numbers[k]:
+                        arc = Arc(transactions[i].name+places[j].name, transactions[i], places[j], 1)
+                        arcs_out.append(arc)                        
+                        transactions[i].addarcout(arc)
                         places[j].addarc(arc)
                         transactions[i].addlocation(places[j])
 
@@ -53,11 +71,19 @@ def addmarks(line):
 def addsize(line):
     marks = re.split('(^.*)?\?', line)
     index = re.findall(r'[0-9]', marks[1])
-    arc_id = "L"+index[0]+"T"+index[1]
-    size = int(marks[2])
-    for i in range(len(arcs)):
-        if arcs[i].id == arc_id:
-            arcs[i].setsize(size)
+    if line.find("E") != -1:
+        arc_id = "L"+index[0]+"T"+index[1]
+        size = int(marks[2])
+        for i in range(len(arcs_in)):
+            if arcs_in[i].id == arc_id:
+                arcs_in[i].setsize(size)
+    else:
+        arc_id = "T"+index[0]+"L"+index[1]
+        size = int(marks[2])
+        for i in range(len(arcs_out)):
+            if arcs_out[i].id == arc_id:
+                arcs_out[i].setsize(size)
+
 
                 
 def buildobjects(line):
@@ -71,6 +97,10 @@ def buildobjects(line):
         addmarks(line)
     elif line.find("E") != -1:
         addsize(line)
+    elif line.find("F") != -1:
+        addtransactionstoplaces(line)
+    elif line.find("G") != -1:
+        addsize(line)
 
 def readFile():
     with open("file.txt", 'r') as f:
@@ -79,26 +109,34 @@ def readFile():
 
 def prinPetriNet():
     print("--------------------------------------------------------------")
-    print("Lugares   ", end = " | ")
+    print("Lugares      ", end = " | ")
     for i in range(len(places)):
         print(places[i].name, end = " | ")
     print()
-    print("Marcas    ", end = " | ")
+    print("Marcas       ", end = " | ")
     for i in range(len(marks_list)):
         print(" "+str(marks_list[i]), end = " | ")
     print()
     print("--------------------------------------------------------------")
-    print("Transação ", end = " | ")
+    print("Transação    ", end = " | ")
     for i in range(len(transactions)):
         print(transactions[i].name, end = " | ")
     print()
-    print("Habilitdo ", end = " | ")
+    print("Habilitdo    ", end = " | ")
     for i in range(len(transactions)):
         if transactions[i].enabled:
             print(" S", end = " | ")
         else:        
             print(" N", end = " | ")
     print("\n--------------------------------------------------------------")
+    print("Arcos entrada", end = " | ")
+    for i in range(len(arcs_in)):
+        print(arcs_in[i].id+":"+str(arcs_in[i].size), end = " | ")
+    print()
+    print("Arcos saida  ", end = " | ")
+    for i in range(len(arcs_out)):
+        print(arcs_out[i].id+":"+str(arcs_out[i].size), end = " | ")
+    print("\n--------------------------------------------------------------")        
     
 
 def consume(): #executa passo a passo a rede de petri

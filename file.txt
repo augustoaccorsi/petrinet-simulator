@@ -1,7 +1,7 @@
 A Quantos lugares: 8
 B Quantas transicoes: 4
 C Quais são os lugares de entrada de T1? 1
-C Quais são os lugares de entrada de T2? 2, 5, 5
+C Quais são os lugares de entrada de T2? 2, 5, 3
 C Quais são os lugares de entrada de T3? 4
 C Quais são os lugares de entrada de T4? 7, 6
 D Quantas marcas em L1 ? 2
@@ -12,20 +12,17 @@ D Quantas marcas em L5 ? 5
 D Quantas marcas em L6 ? 0
 D Quantas marcas em L7 ? 0
 D Quantas marcas em L8 ? 0
-E Qual o peso do arco de L1 para T1 ? 1
+E Qual o peso do arco de L1 para T1 ? 9
 E Qual o peso do arco de L2 para T2 ? 1
-E Qual o peso do arco de L5 para T2 ? 3
 E Qual o peso do arco de L3 para T2 ? 2
 E Qual o peso do arco de L4 para T3 ? 1
+E Qual o peso do arco de L5 para T2 ? 3
 E Qual o peso do arco de L6 para T4 ? 1
 E Qual o peso do arco de L7 para T4 ? 1
-
-
 F Quais são os lugares de saida de T1? 2
 F Quais são os lugares de saida de T2? 4
 F Quais são os lugares de saida de T3? 7, 6
 F Quais são os lugares de saida de T4? 8, 5
-
 G Qual o peso do arco de T1 para L2 ? 1
 G Qual o peso do arco de T2 para L4 ? 1
 G Qual o peso do arco de T3 para L7 ? 1

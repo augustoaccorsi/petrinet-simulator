@@ -2,6 +2,7 @@ class Transaction:
     palce_list = []
     arcs_in= []
     arcs_out= []
+    arcs_list = []
     pos = 0
     name = ""
     size = 0
@@ -13,6 +14,9 @@ class Transaction:
     def addlocation(self, location):
         self.palce_list.append(location)
     
+    def addarc(self, arc):
+        self.arcs_list.append(arc)
+    
     def addarcin(self, arc):
         self.arcs_in.append(arc)
     
@@ -20,7 +24,7 @@ class Transaction:
         self.arcs_out.append(arc)
 
     def printtransaction(self):
-        print(self.name)
+        print("Transação: "+self.name)
         for i in range (len(self.palce_list)):
             if self.palce_list[i].name != "":
                 print(self.palce_list[i].name)
