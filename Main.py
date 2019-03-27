@@ -84,8 +84,9 @@ def prinPetriNet():
     print()
     print("Marcas    ", end = " | ")
     for i in range(len(marks_list)):
-        print(marks_list[i], end = " | ")
+        print(" "+str(marks_list[i]), end = " | ")
     print()
+    print("--------------------------------------------------------------")
     print("Transação ", end = " | ")
     for i in range(len(transactions)):
         print(transactions[i].name, end = " | ")
@@ -93,9 +94,9 @@ def prinPetriNet():
     print("Habilitdo ", end = " | ")
     for i in range(len(transactions)):
         if transactions[i].enabled:
-            print("S", end = " | ")
+            print(" S", end = " | ")
         else:        
-            print("N", end = " | ")
+            print(" N", end = " | ")
     
 
 def consume(): #executa passo a passo a rede de petri
@@ -104,7 +105,7 @@ def consume(): #executa passo a passo a rede de petri
         for j in range(len(arc_list)):
             size = arc_list[j].size
 
-userinput = input("Digite 1 para buscar os dados do arquivo ou 2 para inserir manulamente: ")  
+userinput = "1" #input("Digite 1 para buscar os dados do arquivo ou 2 para inserir manulamente: ")  
 
 if userinput == "1":
     readFile()
