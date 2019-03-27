@@ -78,6 +78,7 @@ def readFile():
             buildobjects(line)
 
 def prinPetriNet():
+    print("--------------------------------------------------------------")
     print("Lugares   ", end = " | ")
     for i in range(len(places)):
         print(places[i].name, end = " | ")
@@ -97,6 +98,7 @@ def prinPetriNet():
             print(" S", end = " | ")
         else:        
             print(" N", end = " | ")
+    print("\n--------------------------------------------------------------")
     
 
 def consume(): #executa passo a passo a rede de petri
@@ -114,8 +116,8 @@ elif userinput == "2":
 else:
     print("tres")
 print()
-print("Rede de Petri inicial-----------------------------------------")
+print("Rede de Petri inicial")
 prinPetriNet()
-print("\n--------------------------------------------------------------")
+
 
 #consume()
