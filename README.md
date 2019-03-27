@@ -1,1 +1,1 @@
-# rede-petri-simulador
+# petrinet-simulator
