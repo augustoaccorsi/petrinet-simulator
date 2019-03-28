@@ -8,8 +8,32 @@ transactions = []
 arcs_in = []
 arcs_out = []
 marks_list =[]
+arc_list = []
 trans_count = 0
 places_count = 0
+
+def getArc(id):
+    for i in range(len(arcs_in)):
+        arc_list.append(arcs_in[i])
+    for i in range(len(arcs_out)):
+        arc_list.append(arcs_out[i])
+
+    for i in range(len(arc_list)):
+        if arc_list[i].id == id:
+            return arc_list[i]
+    return False
+
+def getPlace(name):
+    for i in range(len(places)):
+        if places[i].name == name:
+            return places[i]
+    return False
+
+def getTransaction(name):
+    for i in range(len(transactions)):
+        if transactions[i].name == name:
+            return transactions[i]
+    return False
 
 def createplaces(line):
     if re.search(r'[0-9]', line):
@@ -107,7 +131,8 @@ def readFile():
         for line in f:
             buildobjects(line)
 
-def prinPetriNet():
+def printDetails():
+    print("Rede de Petri inicial")
     print("--------------------------------------------------------------")
     print("Lugares      ", end = " | ")
     for i in range(len(places)):
@@ -139,11 +164,49 @@ def prinPetriNet():
     print("\n--------------------------------------------------------------")        
     
 
-def consume(): #executa passo a passo a rede de petri
+def printCicle(num):   
+    print("|       "+str(num)+"      ", end = " | ")
     for i in range(len(places)):
-        arc_list = places[i].arcs_list
-        for j in range(len(arc_list)):
-            size = arc_list[j].size
+        print(" "+str(places[i].mark), end = " | ")
+    for i in range(len(transactions)):
+        if transactions[i].enabled:
+            print(" S", end = " | ")
+        else:        
+            print(" N", end = " | ")
+    print()
+    print("---------------------------------------------------------------------------------------------")    
+
+def printPetriNet():
+    print("---------------------------------------------------------------------------------------------")
+    print("|               |   Quantidades de Marcas em cada Lugar |    Transação hablitada            |")
+    print("---------------------------------------------------------------------------------------------")
+    print("|   Num ciclo  ", end = " | ")
+    for i in range(len(places)):
+        print(places[i].name, end = " | ")
+    for i in range(len(transactions)):
+        print(transactions[i].name, end = " | ")
+    print()
+    print("---------------------------------------------------------------------------------------------") 
+    
+def consume(): #executa passo a passo a rede de petri
+   for i in range(len(places)):
+        trans = places[i].transaction_list
+        for j in range(len(trans)):
+            arc_id = places[i].name+trans[j].name
+            for k in range(arcs_in):
+                if arc_id == arcs_in[k].id:
+                    out = trans[j].arcs_out
+                    for l in range(len(out)):
+                        if places[i].mark >= out[l].size:
+                            aux = places[i]
+                            aux.mark = aux.mark - out[l].size
+                            places.remove(places[i].mark)
+                            places.append(aux)
+                            places.remove(out[l].place)
+                            out[l].place.mark += out[l].size
+                            places.append(out[l].place)                                        
+                            places[i].mark -=1
+                            trans[j].enabled = True
 
 userinput = "1" #input("Digite 1 para buscar os dados do arquivo ou 2 para inserir manulamente: ")  
 
@@ -154,8 +217,10 @@ elif userinput == "2":
 else:
     print("tres")
 print()
-print("Rede de Petri inicial")
-prinPetriNet()
-
-
+printDetails()
+print("\nRede de execução passo a passo\n")
+printPetriNet()
+printCicle(0)
+consume()
 #consume()
+printCicle(1)

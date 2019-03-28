@@ -6,7 +6,7 @@ C Quais são os lugares de entrada de T3? 4
 C Quais são os lugares de entrada de T4? 7, 6
 D Quantas marcas em L1 ? 2
 D Quantas marcas em L2 ? 0
-D Quantas marcas em L3 ? 3
+D Quantas marcas em L3 ? 2
 D Quantas marcas em L4 ? 0
 D Quantas marcas em L5 ? 5
 D Quantas marcas em L6 ? 0
