@@ -174,6 +174,8 @@ def setTransEnable():
                     aux2 += 1
         if aux1 == aux2:
             transactions[i].setEnabled(True)
+        else:            
+            transactions[i].setEnabled(False)
         aux1 = 0
         aux2 = 0
 
@@ -201,22 +203,22 @@ def printPetriNet():
         print(transactions[i].name, end = " | ")
     print()
     print("---------------------------------------------------------------------------------------------") 
-    
+
 def consume(): #executa passo a passo a rede de petri
-    for i in range(len(places)):
-        for j in range(len(transactions)):
-            arc_in = getArc(places[i].name+transactions[j].name) 
-            for k in range(len(transactions[j].arcs_in)):
-                place = transactions[j].arcs_in[k].place
-                print(place.name)
-               
-
-                #isso não vai acontecer pq nuca vai ser l1t1 e t1l1, seria l1t1 e t1l2
-
-            arc_out = getArc(transactions[j].name+places[i].name)
-            if arc_out.id != "" :
-                print(arc_in.id)
-                print(arc_out.id)
+    for i in range(len(transactions)):
+        if transactions[i].enabled:
+            arcs = transactions[i].arcs_in
+            for j in range(len(arcs)):
+                if arcs[j].id.find(transactions[i].name) != -1:
+                   place = arcs[j].place
+                   place.mark = place.mark - arcs[j].size
+                   arcs[j].addplace(place) #ajusta a nova marca do lugar
+            arcs = transactions[i].arcs_out
+            for j in range(len(arcs)):
+                if arcs[j].id.find(transactions[i].name) != -1:
+                   place = arcs[j].place
+                   place.mark = place.mark + arcs[j].size
+                   arcs[j].addplace(place) #ajusta a nova marca do lugar
 
 userinput = "1" #input("Digite 1 para buscar os dados do arquivo ou 2 para inserir manulamente: ")  
 
@@ -231,5 +233,16 @@ printDetails()
 print("\nRede de execução passo a passo\n")
 printPetriNet()
 printCicle(0)
-#consume()
+consume()
 printCicle(1)
+consume()
+printCicle(2)
+consume()
+printCicle(3)
+consume()
+printCicle(4)
+consume()
+printCicle(5)
+consume()
+printCicle(6)
+consume()
