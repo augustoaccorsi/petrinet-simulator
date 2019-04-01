@@ -1,0 +1,14 @@
+A Quantos lugares: 3
+B Quantas transicoes: 2
+C Quais são os lugares de entrada de T1? 1
+C Quais são os lugares de entrada de T2? 2
+D Quantas marcas em L1 ? 2
+D Quantas marcas em L2 ? 0
+D Quantas marcas em L3 ? 0
+E Qual o peso do arco de L1 para T1 ? 1
+E Qual o peso do arco de L2 para T2 ? 1
+F Quais são os lugares de saida de T1? 2
+F Quais são os lugares de saida de T2? 3
+G Qual o peso do arco de T1 para L2 ? 1
+G Qual o peso do arco de T2 para L3 ? 1
+

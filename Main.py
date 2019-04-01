@@ -21,7 +21,7 @@ def getArc(id):
     for i in range(len(arc_list)):
         if arc_list[i].id == id:
             return arc_list[i]
-    return False
+    return Arc
 
 def getPlace(name):
     for i in range(len(places)):
@@ -107,8 +107,6 @@ def addsize(line):
         for i in range(len(arcs_out)):
             if arcs_out[i].id == arc_id:
                 arcs_out[i].setsize(size)
-
-
                 
 def buildobjects(line):
     if line.find("A") != -1:
@@ -162,9 +160,25 @@ def printDetails():
     for i in range(len(arcs_out)):
         print(arcs_out[i].id+":"+str(arcs_out[i].size), end = " | ")
     print("\n--------------------------------------------------------------")        
-    
 
-def printCicle(num):   
+def setTransEnable():
+    aux1 = 0
+    aux2 = 0
+    for i in range(len(transactions)):
+        for j in range(len(arcs_in)):
+            if arcs_in[j].id.find(transactions[i].name) != -1: #conta os arcos de entrada da transação
+                aux1 += 1
+                arc_size = arcs_in[j].size
+                place_marks = arcs_in[j].place.mark
+                if place_marks >= arc_size:
+                    aux2 += 1
+        if aux1 == aux2:
+            transactions[i].setEnabled(True)
+        aux1 = 0
+        aux2 = 0
+
+def printCicle(num):
+    setTransEnable()   
     print("|       "+str(num)+"      ", end = " | ")
     for i in range(len(places)):
         print(" "+str(places[i].mark), end = " | ")
@@ -189,24 +203,20 @@ def printPetriNet():
     print("---------------------------------------------------------------------------------------------") 
     
 def consume(): #executa passo a passo a rede de petri
-   for i in range(len(places)):
-        trans = places[i].transaction_list
-        for j in range(len(trans)):
-            arc_id = places[i].name+trans[j].name
-            for k in range(arcs_in):
-                if arc_id == arcs_in[k].id:
-                    out = trans[j].arcs_out
-                    for l in range(len(out)):
-                        if places[i].mark >= out[l].size:
-                            aux = places[i]
-                            aux.mark = aux.mark - out[l].size
-                            places.remove(places[i].mark)
-                            places.append(aux)
-                            places.remove(out[l].place)
-                            out[l].place.mark += out[l].size
-                            places.append(out[l].place)                                        
-                            places[i].mark -=1
-                            trans[j].enabled = True
+    for i in range(len(places)):
+        for j in range(len(transactions)):
+            arc_in = getArc(places[i].name+transactions[j].name) 
+            for k in range(len(transactions[j].arcs_in)):
+                place = transactions[j].arcs_in[k].place
+                print(place.name)
+               
+
+                #isso não vai acontecer pq nuca vai ser l1t1 e t1l1, seria l1t1 e t1l2
+
+            arc_out = getArc(transactions[j].name+places[i].name)
+            if arc_out.id != "" :
+                print(arc_in.id)
+                print(arc_out.id)
 
 userinput = "1" #input("Digite 1 para buscar os dados do arquivo ou 2 para inserir manulamente: ")  
 
@@ -221,6 +231,5 @@ printDetails()
 print("\nRede de execução passo a passo\n")
 printPetriNet()
 printCicle(0)
-consume()
 #consume()
 printCicle(1)

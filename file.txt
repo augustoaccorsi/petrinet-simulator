@@ -12,7 +12,7 @@ D Quantas marcas em L5 ? 5
 D Quantas marcas em L6 ? 0
 D Quantas marcas em L7 ? 0
 D Quantas marcas em L8 ? 0
-E Qual o peso do arco de L1 para T1 ? 9
+E Qual o peso do arco de L1 para T1 ? 1
 E Qual o peso do arco de L2 para T2 ? 1
 E Qual o peso do arco de L3 para T2 ? 2
 E Qual o peso do arco de L4 para T3 ? 1
