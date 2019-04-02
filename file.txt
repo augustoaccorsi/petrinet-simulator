@@ -21,12 +21,13 @@ E Qual o peso do arco de L6 para T4 ? 1
 E Qual o peso do arco de L7 para T4 ? 1
 F Quais são os lugares de saida de T1? 2
 F Quais são os lugares de saida de T2? 4
-F Quais são os lugares de saida de T3? 7, 6
+F Quais são os lugares de saida de T3? 7, 6, 3
 F Quais são os lugares de saida de T4? 8, 5
 G Qual o peso do arco de T1 para L2 ? 1
 G Qual o peso do arco de T2 para L4 ? 1
 G Qual o peso do arco de T3 para L7 ? 1
 G Qual o peso do arco de T3 para L6 ? 1
+G Qual o peso do arco de T3 para L3 ? 2
 G Qual o peso do arco de T4 para L8 ? 1
 G Qual o peso do arco de T4 para L5 ? 3
 

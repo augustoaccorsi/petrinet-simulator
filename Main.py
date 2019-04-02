@@ -125,7 +125,7 @@ def buildobjects(line):
         addsize(line)
 
 def readFile():
-    with open("file2.txt", 'r') as f:
+    with open("file.txt", 'r') as f:
         for line in f:
             buildobjects(line)
 
