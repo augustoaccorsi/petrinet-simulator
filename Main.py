@@ -129,37 +129,37 @@ def readFile():
         for line in f:
             buildobjects(line)
 
-def printDetails():
-    print("Rede de Petri inicial")
-    print("--------------------------------------------------------------")
-    print("Lugares      ", end = " | ")
+def printDetails(file):
+    header = "Rede de Petri inicial"
+    header = header+"\n--------------------------------------------------------------"
+    data = "Lugares       | "
     for i in range(len(places)):
-        print(places[i].name, end = " | ")
-    print()
-    print("Marcas       ", end = " | ")
+        data = data + places[i].name + " | "
+    print(header)
+    data = data+"\nMarcas        | "
     for i in range(len(marks_list)):
-        print(" "+str(marks_list[i]), end = " | ")
-    print()
-    print("--------------------------------------------------------------")
-    print("Transação    ", end = " | ")
+        data = data + " "+str(marks_list[i]) + " | "
+    data = data + "\n--------------------------------------------------------------"
+    data = data + "\nTransação     | "
+    setTransEnable()
     for i in range(len(transactions)):
-        print(transactions[i].name, end = " | ")
-    print()
-    print("Habilitdo    ", end = " | ")
+        data = data + transactions[i].name + " | "
+    data = data + "\nHabilitdo     | "
     for i in range(len(transactions)):
         if transactions[i].enabled:
-            print(" S", end = " | ")
+            data = data + " S | "
         else:        
-            print(" N", end = " | ")
-    print("\n--------------------------------------------------------------")
-    print("Arcos entrada", end = " | ")
+            data = data + " N | "
+    data = data + "\nArcos entrada | "
     for i in range(len(arcs_in)):
-        print(arcs_in[i].id+":"+str(arcs_in[i].size), end = " | ")
-    print()
-    print("Arcos saida  ", end = " | ")
+        data = data + arcs_in[i].id+":"+str(arcs_in[i].size) + " | "
+    data = data + "\nArcos saida   | "
     for i in range(len(arcs_out)):
-        print(arcs_out[i].id+":"+str(arcs_out[i].size), end = " | ")
-    print("\n--------------------------------------------------------------")        
+        data = data + arcs_out[i].id+":"+str(arcs_out[i].size) + " | "
+    data = data + "\n--------------------------------------------------------------"
+    print(data)
+    file.write(header+"\n")
+    file.write(data+"\n")       
 
 def setTransEnable():
     aux1 = 0
@@ -185,30 +185,37 @@ def stopLoop():
             return False
     return True
 
-def printCicle(num):
-    setTransEnable()   
-    print("|       "+str(num)+"      ", end = " | ")
+def printCicle(num, file):
+    setTransEnable() 
+    data = "|       "+str(num)+"      "+" | "
     for i in range(len(places)):
-        print(" "+str(places[i].mark), end = " | ")
+        data = data+" "+str(places[i].mark) + " | "
     for i in range(len(transactions)):
         if transactions[i].enabled:
-            print(" S", end = " | ")
+            data = data + " S | "
         else:        
-            print(" N", end = " | ")
-    print()
-    print("---------------------------------------------------------------------------------------------")    
+            data = data + " N | "
+    data = data + "\n---------------------------------------------------------------------------------------------"
+    print(data)
+    file.write(data+"\n")
 
-def printPetriNet():
-    print("---------------------------------------------------------------------------------------------")
-    print("|               |   Quantidades de Marcas em cada Lugar |    Transação hablitada            |")
-    print("---------------------------------------------------------------------------------------------")
-    print("|   Num ciclo  ", end = " | ")
+def printPetriNet(file):
+    header = "\nRede de execução passo a passo\n"
+    header = header +"---------------------------------------------------------------------------------------------"
+    header = header + "\n|               |   Quantidades de Marcas em cada Lugar |    Transação hablitada            |"
+    header = header + "\n---------------------------------------------------------------------------------------------"
+    print(header)
+    data = "|   Num ciclo   | "
     for i in range(len(places)):
-        print(places[i].name, end = " | ")
+        data = data + places[i].name + " | "
     for i in range(len(transactions)):
-        print(transactions[i].name, end = " | ")
-    print()
-    print("---------------------------------------------------------------------------------------------") 
+        data = data + transactions[i].name + " | "
+    print(data)
+    footer = "---------------------------------------------------------------------------------------------"
+    print(footer)
+    file.write(header+"\n")
+    file.write(data+"\n")
+    file.write(footer+"\n")
 
 def consume(): #executa passo a passo a rede de petri
     for i in range(len(transactions)):
@@ -227,14 +234,16 @@ def consume(): #executa passo a passo a rede de petri
                    arcs[j].addplace(place) #ajusta a nova marca do lugar
 
 readFile()
-printDetails()
-print("\nRede de execução passo a passo\n")
 
-printPetriNet()
+file = open('output.txt', 'w')
+printDetails(file)
+printPetriNet(file)
 i = 0
-
-setTransEnable()  
+  
 while stopLoop() == False:
-    printCicle(i)
+    printCicle(i, file)
     consume()
     i += 1
+
+
+file.close()
