@@ -125,7 +125,7 @@ def buildobjects(line):
         addsize(line)
 
 def readFile():
-    with open("file.txt", 'r') as f:
+    with open("file2.txt", 'r') as f:
         for line in f:
             buildobjects(line)
 
@@ -179,6 +179,12 @@ def setTransEnable():
         aux1 = 0
         aux2 = 0
 
+def stopLoop():
+    for i in range(len(transactions)):
+        if transactions[i].enabled:
+            return False
+    return True
+
 def printCicle(num):
     setTransEnable()   
     print("|       "+str(num)+"      ", end = " | ")
@@ -231,18 +237,12 @@ else:
 print()
 printDetails()
 print("\nRede de execução passo a passo\n")
+
 printPetriNet()
-printCicle(0)
-consume()
-printCicle(1)
-consume()
-printCicle(2)
-consume()
-printCicle(3)
-consume()
-printCicle(4)
-consume()
-printCicle(5)
-consume()
-printCicle(6)
-consume()
+i = 0
+
+setTransEnable()  
+while stopLoop() == False:
+    printCicle(i)
+    consume()
+    i += 1
