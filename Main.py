@@ -226,15 +226,7 @@ def consume(): #executa passo a passo a rede de petri
                    place.mark = place.mark + arcs[j].size
                    arcs[j].addplace(place) #ajusta a nova marca do lugar
 
-userinput = "1" #input("Digite 1 para buscar os dados do arquivo ou 2 para inserir manulamente: ")  
-
-if userinput == "1":
-    readFile()
-elif userinput == "2":
-    print("dois")
-else:
-    print("tres")
-print()
+readFile()
 printDetails()
 print("\nRede de execução passo a passo\n")
 
