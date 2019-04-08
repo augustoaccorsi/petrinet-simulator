@@ -1,5 +1,5 @@
 class Place:    
-    transaction_list = []
+    transition_list = []
     arcs_list = []
     pos = 0
     mark = 0
@@ -8,8 +8,8 @@ class Place:
     def __init__(self, name):
         self.name = name
 
-    def addtransaction(self, transaction):
-        self.transaction_list.append(transaction)
+    def addtransition(self, transition):
+        self.transition_list.append(transition)
     
     def addarc(self, arc):
         self.arcs_list.append(arc)
@@ -21,5 +21,5 @@ class Place:
     def addmark(self, mark):
         self.mark = mark
     
-    def gettransactions(self):
-        return self.transaction_list
+    def gettransitions(self):
+        return self.transition_list

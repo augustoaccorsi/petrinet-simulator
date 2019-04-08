@@ -1,17 +1,17 @@
 class Arc:
     id = ""
     size = 0
-    transaction = None
+    transition = None
     place = None
 
-    def __init__(self, id, transaction, place, size):
+    def __init__(self, id, transition, place, size):
         self.id = id
-        self.transaction = transaction
+        self.transition = transition
         self.place = place
         self.size = size
             
-    def addtransaction(self, transaction):
-        self.transaction = transaction
+    def addtransition(self, transition):
+        self.transition = transition
     
     def addplace(self, place):
         self.place = place

@@ -1,4 +1,4 @@
-class Transaction:
+class Transition:
     palce_list = []
     arcs_in= []
     arcs_out= []
@@ -22,13 +22,6 @@ class Transaction:
     
     def addarcout(self, arc):
         self.arcs_out.append(arc)
-
-    def printtransaction(self):
-        print("Transação: "+self.name)
-        for i in range (len(self.palce_list)):
-            if self.palce_list[i].name != "":
-                print(self.palce_list[i].name)
-            print(self.size)
         
     def setsize(self, size):
         self.size = size

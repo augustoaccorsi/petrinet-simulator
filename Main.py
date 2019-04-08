@@ -1,10 +1,10 @@
 import re
 from Place import Place
-from Transaction import Transaction
+from Transition import Transition
 from Arc import Arc
 
 places = []
-transactions = []
+transitions = []
 arcs_in = []
 arcs_out = []
 marks_list =[]
@@ -29,10 +29,10 @@ def getPlace(name):
             return places[i]
     return False
 
-def getTransaction(name):
-    for i in range(len(transactions)):
-        if transactions[i].name == name:
-            return transactions[i]
+def getTransition(name):
+    for i in range(len(transitions)):
+        if transitions[i].name == name:
+            return transitions[i]
     return False
 
 def createplaces(line):
@@ -41,45 +41,45 @@ def createplaces(line):
             for i in range(int(index[0])):
                 places.append(Place("L"+str(i+1)))
 
-def createtransactions(line):
+def createtransitions(line):
     if re.search(r'[0-9]', line):
             index = re.findall(r'[0-9]', line)
             for i in range(int(index[0])):
-                transactions.append(Transaction("T"+str(i+1)))
+                transitions.append(Transition("T"+str(i+1)))
 
-def addplacestotransactions(line):
+def addplacestotransitions(line):
     parts = re.split('(^.*)?\?', line)
     parts = re.split('(^.*)?\?', parts[2])
     place_numbers = re.findall(r'[0-9]', parts[0])
     for i in range(len(place_numbers)):
         place_numbers[i] = "L"+str(place_numbers[i])
-    for i in range(len(transactions)):
-        if line.find(transactions[i].name) != -1:
+    for i in range(len(transitions)):
+        if line.find(transitions[i].name) != -1:
             for j in range(len(places)):
                 for k in range(len(place_numbers)):
                     if places[j].name == place_numbers[k]:
-                        arc = Arc(places[j].name+transactions[i].name, transactions[i], places[j], 1)
+                        arc = Arc(places[j].name+transitions[i].name, transitions[i], places[j], 1)
                         arcs_in.append(arc)                        
-                        transactions[i].addarcin(arc)
+                        transitions[i].addarcin(arc)
                         places[j].addarc(arc)
-                        transactions[i].addlocation(places[j])
+                        transitions[i].addlocation(places[j])
 
-def addtransactionstoplaces(line):
+def addtransitionstoplaces(line):
     parts = re.split('(^.*)?\?', line)
     parts = re.split('(^.*)?\?', parts[2])
     place_numbers = re.findall(r'[0-9]', parts[0])
     for i in range(len(place_numbers)):
         place_numbers[i] = "L"+str(place_numbers[i])
-    for i in range(len(transactions)):
-        if line.find(transactions[i].name) != -1:
+    for i in range(len(transitions)):
+        if line.find(transitions[i].name) != -1:
             for j in range(len(places)):
                 for k in range(len(place_numbers)):
                     if places[j].name == place_numbers[k]:
-                        arc = Arc(transactions[i].name+places[j].name, transactions[i], places[j], 1)
+                        arc = Arc(transitions[i].name+places[j].name, transitions[i], places[j], 1)
                         arcs_out.append(arc)                        
-                        transactions[i].addarcout(arc)
+                        transitions[i].addarcout(arc)
                         places[j].addarc(arc)
-                        transactions[i].addlocation(places[j])
+                        transitions[i].addlocation(places[j])
 
 def addmarks(line):
     marks = re.split('(^.*)?\?', line)
@@ -112,15 +112,15 @@ def buildobjects(line):
     if line.find("A") != -1:
         createplaces(line)
     elif line.find("B") != -1:
-        createtransactions(line)
+        createtransitions(line)
     elif line.find("C") != -1:
-        addplacestotransactions(line)
+        addplacestotransitions(line)
     elif line.find("D") != -1:
         addmarks(line)
     elif line.find("E") != -1:
         addsize(line)
     elif line.find("F") != -1:
-        addtransactionstoplaces(line)
+        addtransitionstoplaces(line)
     elif line.find("G") != -1:
         addsize(line)
 
@@ -142,11 +142,11 @@ def printDetails(file):
     data = data + "\n--------------------------------------------------------------"
     data = data + "\nTransação     | "
     setTransEnable()
-    for i in range(len(transactions)):
-        data = data + transactions[i].name + " | "
+    for i in range(len(transitions)):
+        data = data + transitions[i].name + " | "
     data = data + "\nHabilitdo     | "
-    for i in range(len(transactions)):
-        if transactions[i].enabled:
+    for i in range(len(transitions)):
+        if transitions[i].enabled:
             data = data + " S | "
         else:        
             data = data + " N | "
@@ -164,24 +164,24 @@ def printDetails(file):
 def setTransEnable():
     aux1 = 0
     aux2 = 0
-    for i in range(len(transactions)):
+    for i in range(len(transitions)):
         for j in range(len(arcs_in)):
-            if arcs_in[j].id.find(transactions[i].name) != -1: #conta os arcos de entrada da transação
+            if arcs_in[j].id.find(transitions[i].name) != -1: #conta os arcos de entrada da transação
                 aux1 += 1
                 arc_size = arcs_in[j].size
                 place_marks = arcs_in[j].place.mark
                 if place_marks >= arc_size:
                     aux2 += 1
         if aux1 == aux2:
-            transactions[i].setEnabled(True)
+            transitions[i].setEnabled(True)
         else:            
-            transactions[i].setEnabled(False)
+            transitions[i].setEnabled(False)
         aux1 = 0
         aux2 = 0
 
 def stopLoop():
-    for i in range(len(transactions)):
-        if transactions[i].enabled:
+    for i in range(len(transitions)):
+        if transitions[i].enabled:
             return False
     return True
 
@@ -190,8 +190,8 @@ def printCicle(num, file):
     data = "|       "+str(num)+"      "+" | "
     for i in range(len(places)):
         data = data+" "+str(places[i].mark) + " | "
-    for i in range(len(transactions)):
-        if transactions[i].enabled:
+    for i in range(len(transitions)):
+        if transitions[i].enabled:
             data = data + " S | "
         else:        
             data = data + " N | "
@@ -208,8 +208,8 @@ def printPetriNet(file):
     data = "|   Num ciclo   | "
     for i in range(len(places)):
         data = data + places[i].name + " | "
-    for i in range(len(transactions)):
-        data = data + transactions[i].name + " | "
+    for i in range(len(transitions)):
+        data = data + transitions[i].name + " | "
     print(data)
     footer = "---------------------------------------------------------------------------------------------"
     print(footer)
@@ -218,17 +218,17 @@ def printPetriNet(file):
     file.write(footer+"\n")
 
 def consume(): #executa passo a passo a rede de petri
-    for i in range(len(transactions)):
-        if transactions[i].enabled:
-            arcs = transactions[i].arcs_in
+    for i in range(len(transitions)):
+        if transitions[i].enabled:
+            arcs = transitions[i].arcs_in
             for j in range(len(arcs)):
-                if arcs[j].id.find(transactions[i].name) != -1:
+                if arcs[j].id.find(transitions[i].name) != -1:
                    place = arcs[j].place
                    place.mark = place.mark - arcs[j].size
                    arcs[j].addplace(place) #ajusta a nova marca do lugar
-            arcs = transactions[i].arcs_out
+            arcs = transitions[i].arcs_out
             for j in range(len(arcs)):
-                if arcs[j].id.find(transactions[i].name) != -1:
+                if arcs[j].id.find(transitions[i].name) != -1:
                    place = arcs[j].place
                    place.mark = place.mark + arcs[j].size
                    arcs[j].addplace(place) #ajusta a nova marca do lugar
